@@ -13,7 +13,6 @@ import java.util.*;
 public class InorderTraversal {
 	private static List<Integer> ans = new ArrayList<Integer>();
     public static List<Integer> preorderTraversal(Nd root) {
-    	Queue<Nd> q=new LinkedList<Nd>();
     	
         if(root == null) 
             return ans;

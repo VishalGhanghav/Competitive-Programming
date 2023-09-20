@@ -1,4 +1,4 @@
-class Solution{
+class CountSubsetSum{
     
     // as per gfg but idea is same
 

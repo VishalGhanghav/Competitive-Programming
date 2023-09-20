@@ -6,45 +6,57 @@ import java.util.Map;
 public class MinimumWindowSubString {
 
 	public static void main(String[] args) {
-		String str="aabacbebebe";
-		int k=3;
-		int res=solve(str,k);
+		String str="livetopractice";
+		String t="toc";
+		String res=solve(str,t);
 		System.out.println(res);
 	}
 
-	private static int solve(String str, int k) {
+	private static String solve(String str, String t) {
+		int ans=Integer.MAX_VALUE;
+		String minS="";
 		int i=0,j=0;
-		int ans=-1;
-		Map<Character,Integer> map=new HashMap<>();
-		
+		HashMap<Character,Integer> map=new HashMap<>();
+		for(int k=0;k<t.length();k++) {
+			map.put(t.charAt(k), map.getOrDefault(t.charAt(k), 0)+1);
+		}
+		System.out.println(map);
+		int count=map.size();
+	
 		while(j<str.length()) {
-			//calculation
-			//Add element in map
-			int currentCharValue=map.getOrDefault(str.charAt(j), 0);
-			map.put(str.charAt(j), currentCharValue+1);
-			
-			if(map.size()<k) {
+			char c=str.charAt(j);
+			if(map.containsKey(c)) {
+				map.put(c, map.get(c)-1);
+				if(map.get(c)==0) {
+					count--;
+				}
+			}
+			if(count>0) {
 				j++;
-			}else if (map.size()==k) {
-				//ans
-				ans=Math.max(ans, j-i+1);
-				j++;
-			}else if (map.size()>k) {
-				//remove cal of i
-				while(map.size()>k) {
-					char currChar=str.charAt(i);
-					int freqOfCurrentChar=map.get(currChar);
-					map.put(currChar, freqOfCurrentChar-1);
-					if(map.get(currChar)==0) {
-					map.remove(str.charAt(i));
+			}else if(count==0) {
+				
+				while(count==0) {
+					if(ans>(j-i+1)) {
+						minS=str.substring(i,j+1);
+						ans=Math.min(ans, j-i+1);
+					}
+					
+					
+					char c1=str.charAt(i);
+					if(map.containsKey(c1)) {
+						map.put(c1, map.get(c1)+1);
+						if(map.get(c1)>0) {
+							count++;
+						}
 					}
 					i++;
 				}
 				j++;
 			}
-		
+			
 		}
-		return ans;
+
+		return minS;
 	}
 }
 

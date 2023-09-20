@@ -1,4 +1,4 @@
-class Solution {
+class EqualSumPartition {
     
     // slight variation with subset sum , 
     // if sum odd - > not possible 

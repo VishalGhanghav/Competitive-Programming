@@ -1,7 +1,9 @@
 package views;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class LeftViewOfBinaryTree {
 
@@ -27,8 +29,35 @@ public class LeftViewOfBinaryTree {
 	private static List<Integer> leftView(Node root) {
 		
 		List<Integer> al=new ArrayList<Integer>();
-		//al=leftSideView(root,0,al);or
-		leftSideView(root,0,al);
+		//for recursive
+		//leftSideView(root,0,al);
+		
+		//for level wise
+		Queue<Node> q=new LinkedList<>();
+		q.offer(root);
+		//if root is null, node.val in future gives null pointer exception
+		if(root==null){
+		    return al;
+		}
+		while(!q.isEmpty()) {
+			int size=q.size();
+			Node node=null;
+			for(int i=0;i<size;i++) {
+				node=q.poll();
+				if(i==0) {
+					al.add(node.val);
+				}
+				if(node.left!=null) {
+					q.offer(node.left);
+				}
+				if(node.right!=null) {
+					q.offer(node.right);
+				}
+				
+			}
+			//For each level ,first node is left view
+		
+		}
 		return al;
 	}
 

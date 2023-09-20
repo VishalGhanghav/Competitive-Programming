@@ -3,7 +3,7 @@
 // code when : length array is not given also peices can be done from size 1 to N 
 
 // as per gfg
-class Solution{
+class RodCuttingProblem{
     public int cutRod(int price[], int n) {
         
         int[] len = new int[n];

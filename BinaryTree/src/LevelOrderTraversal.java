@@ -13,6 +13,8 @@ class TreeNode {
 public class LevelOrderTraversal {
     public static List<List<Integer>> preorderTraversal(TreeNode root) {
     	Queue<TreeNode> q=new LinkedList<TreeNode>();
+    	Stack<Integer> s=new Stack<Integer>();
+    
     	List<List<Integer>> resList=new LinkedList<List<Integer>>();
     	if(root==null) {
     		return resList;
@@ -25,6 +27,7 @@ public class LevelOrderTraversal {
     			
     			if(q.peek().left!=null) {
     				q.add(q.peek().left);
+    				
     			}
     			if(q.peek().right!=null) {
     				q.add(q.peek().right);

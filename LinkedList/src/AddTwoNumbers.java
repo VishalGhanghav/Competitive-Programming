@@ -64,5 +64,8 @@ class Solution {
         return dummy.next;
     }
 }
+
+ListNode dummy=new ListNode();
+
  */
 }

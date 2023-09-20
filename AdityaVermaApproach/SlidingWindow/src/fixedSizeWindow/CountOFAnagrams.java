@@ -12,7 +12,7 @@ public class CountOFAnagrams {
 		System.out.println("Count OF Anagrams"+countOfAnagrams(input,pattern));
 	}
 
-	private static List<Integer> countOfAnagrams(String ip, String p) {
+	private static int countOfAnagrams(String ip, String p) {
 		HashMap<Character,Integer> map=new HashMap<>();
 		List<Integer> ans=new ArrayList<>();
 		
@@ -26,6 +26,7 @@ public class CountOFAnagrams {
 		System.out.println(map);
 		int count=map.size();
 		int i=0,j=0;
+		int resCount=0;
 		while(j<ip.length()) {
 			//calculations
 			if(map.containsKey(ip.charAt(j))) {
@@ -41,9 +42,11 @@ public class CountOFAnagrams {
 			else if(j-i+1==p.length()) {
 				//ans calculation
 				if(count==0) {
-					ans.add(i);
+					//ans.add(i);
+					resCount++;
 				}
 				//before making window slide lets set everything for current first element of window
+				//As element at a is not present in map now .SO increment it's count
 				if(map.containsKey(ip.charAt(i))) {
 					map.put(ip.charAt(i), map.get(ip.charAt(i))+1);
 					//In case some element was a:0 and now increased to a:1 
@@ -57,7 +60,8 @@ public class CountOFAnagrams {
 				j++;	
 			}
 		}
-		return ans;
+		//return ans;
+		return resCount;
 	}
 	
 }

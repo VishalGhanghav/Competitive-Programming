@@ -13,7 +13,6 @@ class Node {
 public class PreOrderTraversal {
 	private static List<Integer> ans = new ArrayList<Integer>();
     public static List<Integer> preorderTraversal(Node root) {
-    	Queue<Node> q=new LinkedList<Node>();
     	
         if(root == null) 
             return ans;

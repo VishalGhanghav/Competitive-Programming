@@ -1,4 +1,4 @@
-class Solution{
+class SubsetSumProblem{
 
 
     static Boolean isSubsetSum(int N, int arr[], int sum){

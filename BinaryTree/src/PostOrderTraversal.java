@@ -13,7 +13,6 @@ class Nde {
 public class PostOrderTraversal {
 	private static List<Integer> ans = new ArrayList<Integer>();
     public static List<Integer> preorderTraversal(Nde root) {
-    	Queue<Nde> q=new LinkedList<Nde>();
     	
         if(root == null) 
             return ans;
