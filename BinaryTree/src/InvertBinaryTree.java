@@ -12,15 +12,22 @@ import java.util.*;
 }
 public class InvertBinaryTree {
 	private static List<Integer> ans = new ArrayList<Integer>();
-    public static List<Integer> preorderTraversal(NodeInv root) {
-    	
-        if(root == null) 
-            return ans;
-        System.out.println(root.val);
-        preorderTraversal(root.left);
-        preorderTraversal(root.right);
-        return ans;
+    /*
+    public TreeNode invertTree(TreeNode root) {
+         if(root == null){
+            return root;
+        }
+        // Call the function recursively for the left subtree...
+        invertTree(root.left);
+        // Call the function recursively for the right subtree...
+        invertTree(root.right);
+        // Swapping process...
+        TreeNode curr = root.left;
+        root.left = root.right;
+        root.right = curr;
+        return root;
     }
+     */
    
 
 
@@ -44,7 +51,7 @@ public class InvertBinaryTree {
 
 
         List<Integer> preOrder = new ArrayList < > ();
-        preOrder = preorderTraversal(root);
+        // preOrder = preorderTraversal(root);
 
         System.out.print("The preOrder Traversal is : ");
         for (int i = 0; i < preOrder.size(); i++) {

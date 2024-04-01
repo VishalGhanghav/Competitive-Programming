@@ -1,4 +1,4 @@
-package com.BinarySearch;
+package AdityaVermaApproach.BinarySearch.src.com.BinarySearch;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

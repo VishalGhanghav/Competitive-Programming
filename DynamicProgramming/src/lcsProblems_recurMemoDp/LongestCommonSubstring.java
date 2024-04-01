@@ -1,4 +1,4 @@
-package lcsProblems_recurMemoDp;
+package DynamicProgramming.src.lcsProblems_recurMemoDp;
 
 public class LongestCommonSubstring {
 	public static void main(String args[]) {

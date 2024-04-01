@@ -4,7 +4,8 @@ public class PrintLCS {
 	public static void main(String args[]) {
 		String a="abcdaf";
 		String b="acbcf";
-		
+		String sb=new StringBuilder(a).reverse().toString();
+		System.out.println(sb);
 		String res=longestCommonSubsequenceRecursion(a,b,a.length(),b.length());
 		System.out.println(res);
 	}

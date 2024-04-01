@@ -1,5 +1,8 @@
 package views;
 
+import BinaryTree.src.Node;
+import BinaryTree.src.views.Pair;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;

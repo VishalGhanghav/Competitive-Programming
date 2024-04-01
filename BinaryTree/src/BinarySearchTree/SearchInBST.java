@@ -1,4 +1,4 @@
-package BinarySearchTree;
+package BinaryTree.src.BinarySearchTree;
 
 public class SearchInBST {
 

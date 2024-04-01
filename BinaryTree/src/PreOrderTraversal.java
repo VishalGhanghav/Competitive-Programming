@@ -1,15 +1,7 @@
-
+package BinaryTree.src;
 
 import java.util.*;
 
-class Node {
-    int val;
-    Node left, right;
-    Node(int data) {
-        this.val = data;
-        left = right = null;
-    }
-}
 public class PreOrderTraversal {
 	private static List<Integer> ans = new ArrayList<Integer>();
     public static List<Integer> preorderTraversal(Node root) {

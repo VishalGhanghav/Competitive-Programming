@@ -1,8 +1,8 @@
-package BinarySearchTree;
+package BinaryTree.src.BinarySearchTree;
 
 public class Node {
-	Node left,right;
-	int val;
+	public Node left,right;
+	public int val;
 	Node(int val){
 		this.val=val;
 	}

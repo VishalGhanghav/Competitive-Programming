@@ -1,10 +1,13 @@
-package BinarySearchTree;
+package BinaryTree.src.BinarySearchTree;
+
+import BinaryTree.src.BinarySearchTree.Node;
+
 
 public class CeilOfBST {
 	public static void main(String args[])
 	{
 		
-		 Node root = new Node(10);
+		    Node root = new Node(10);
 	        root.left = new Node(9);
 	        root.right = new Node(12);
 	        root.left.left = new Node(8);

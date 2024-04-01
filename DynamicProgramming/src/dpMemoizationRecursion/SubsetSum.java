@@ -1,4 +1,4 @@
-package dpMemoizationRecursion;
+package DynamicProgramming.src.dpMemoizationRecursion;
 
 import java.util.Arrays;
 

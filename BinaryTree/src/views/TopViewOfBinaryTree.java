@@ -1,4 +1,6 @@
-package views;
+package BinaryTree.src.views;
+
+import BinaryTree.src.Node;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,15 +9,6 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.TreeMap;
 
-class Pair{
-	Node node;
-	int line;
-	
-	Pair(Node node,int line){
-		this.node=node;
-		this.line=line;
-	}
-}
 public class TopViewOfBinaryTree {
 	public static ArrayList<Integer> topView(Node root)
 	{

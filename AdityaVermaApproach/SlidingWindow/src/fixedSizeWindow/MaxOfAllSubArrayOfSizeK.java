@@ -23,6 +23,7 @@ public class MaxOfAllSubArrayOfSizeK {
 			//basic calculation
 			if(dq.size()==0) {
 				dq.addLast(arr[j]);
+				
 			}else {
 				while(dq.size()>0 && dq.peekLast()<arr[j]) {
 					dq.pollLast();//just pop

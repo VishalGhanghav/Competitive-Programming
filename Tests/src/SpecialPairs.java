@@ -1,4 +1,5 @@
 
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.*;
 
@@ -9,6 +10,11 @@ public class SpecialPairs {
     	int [][] intervals= {{1,2,10},{3,5,15},{2,3,12}};
 		int []newInterval= {4,8};
 		int noOfTrains=3;
+
+		Map<Character,Integer> map=new HashMap<>();
+		map.put('a',1);
+		map.put('b',2);
+		System.out.println("map:"+map);
 		int arr[][]=new int[3][5];
 		
 		List<Train> list=new ArrayList<Train>();

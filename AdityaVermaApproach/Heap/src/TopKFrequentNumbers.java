@@ -37,6 +37,7 @@ class kf{
 		PriorityQueue<Pair> minH=new PriorityQueue<>((a,b)->
 			a.freq-b.freq
 		);
+	
 		for(int key:map.keySet()) {
 			minH.add(new Pair(map.get(key),key));
 			
