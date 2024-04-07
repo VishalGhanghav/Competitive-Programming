@@ -50,6 +50,7 @@ public class RootToNodePath {
         boolean res;
         res = getPath(root, arr, 7);
 
+
         System.out.print("The path is ");
         for (int it: arr) {
             System.out.print(it + " ");
