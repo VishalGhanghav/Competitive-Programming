@@ -1,7 +1,9 @@
+package AdityaVermaApproach.knapsackProblem;
+
 // coin change 2 - > as per leetcode
 //  tablutaion  
 // variation  - >  Unbounded KnapSack
-class Solution {
+class CoinChangeProblemNoOfWays {
     public int change(int amount, int[] coins) {
     int n=coins.length;
     
