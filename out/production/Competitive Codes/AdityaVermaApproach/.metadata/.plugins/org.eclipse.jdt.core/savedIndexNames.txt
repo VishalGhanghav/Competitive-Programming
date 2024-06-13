@@ -1,0 +1,10 @@
+INDEX VERSION 1.131+D:\Competitive Codes\AdityaVerma\.metadata\.plugins\org.eclipse.jdt.core
+2420995280.index
+1865797976.index
+527231807.index
+127829780.index
+2057868505.index
+3498066710.index
+4042456995.index
+2613871300.index
+3055808174.index
