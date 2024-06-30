@@ -4,18 +4,17 @@ package SdeSheetBinaryTree.easy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-class Pair{
-    TreeNode node;
-    int num;
-
-    public Pair(TreeNode node, int num) {
-        this.node = node;
-        this.num = num;
-    }
-}
 public class InorderPreorderPostorderInOne {
 
+    static class Pair{
+        TreeNode node;
+        int num;
+
+        public Pair(TreeNode node, int num) {
+            this.node = node;
+            this.num = num;
+        }
+    }
     //Iterative
     public void inPrePostorderTraversal(TreeNode root) {
         //I will have a num and node in stack .Based on num ,I will choose if we need to add in preorder
