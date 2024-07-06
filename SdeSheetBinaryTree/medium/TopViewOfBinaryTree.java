@@ -30,6 +30,7 @@ public class TopViewOfBinaryTree {
             Pair nodeVertPair=levelQueue.poll();
             TreeNode node=nodeVertPair.node;
             int vert=nodeVertPair.vert;
+            //for each vert it will be null only first time
             if(verticalNodeMap.get(vert)==null){
                 verticalNodeMap.put(vert,node.val);
             }
