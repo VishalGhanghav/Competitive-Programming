@@ -1,8 +1,5 @@
 package SdeSheetBinaryTree.hard;
 
-
-import SdeSheetBinaryTree.TreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +49,10 @@ Note: Case 3 is very important as we need to remove the new links added to resto
 To summarize, at a node whether we have to move left or right is determined whether the node has a left subtree. If it doesn’t we move to the right. If there is a left subtree then we see its rightmost child. If the rightmost child is pointing to NULL, we move the current node to its left. If the rightmost child is already pointing towards the current node, we remove that link and move to the right of the current node. We will stop the execution when the current points to null and we have traversed the whole tree.
  */
 class MorrisPreorderTraversal {
-    public List<Integer> preorderTraversal(SdeSheetBinaryTree.TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> preorder = new ArrayList<Integer>();
 
-        SdeSheetBinaryTree.TreeNode cur = root;
+        TreeNode cur = root;
         while(cur != null) {
             if(cur.left == null) {
                 preorder.add(cur.val);
