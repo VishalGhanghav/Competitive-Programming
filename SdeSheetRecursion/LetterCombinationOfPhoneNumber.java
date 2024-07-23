@@ -56,6 +56,7 @@ public class LetterCombinationOfPhoneNumber {
     }
 
     public void solve(int i,StringBuilder ds,List<String> ans,String digits){
+        //when i=2 and digits.length=2//23
         if(i==digits.length()){
             //when we traverse for all digit in digits
             ans.add(ds.toString());
