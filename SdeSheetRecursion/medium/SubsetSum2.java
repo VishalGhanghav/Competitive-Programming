@@ -1,10 +1,8 @@
-package SdeSheetRecursion;
+package SdeSheetRecursion.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*
 Given an integer array nums that may contain duplicates, return all possible

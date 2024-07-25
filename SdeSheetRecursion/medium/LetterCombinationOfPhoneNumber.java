@@ -1,4 +1,4 @@
-package SdeSheetRecursion;
+package SdeSheetRecursion.medium;
 
 import java.util.ArrayList;
 import java.util.List;
