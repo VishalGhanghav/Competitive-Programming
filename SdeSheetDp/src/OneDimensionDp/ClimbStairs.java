@@ -1,4 +1,4 @@
-package SdeSheetDp.src.dpBasic;
+package SdeSheetDp.src.OneDimensionDp;
 
 /*
  You are climbing a staircase. It takes n steps to reach the top.

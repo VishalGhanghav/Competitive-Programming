@@ -1,4 +1,4 @@
-package SdeSheetDp.src.dpBasic;
+package SdeSheetDp.src.OneDimensionDp;
 
 import java.util.Arrays;
 

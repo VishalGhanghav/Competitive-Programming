@@ -45,7 +45,9 @@ public class MinimumPathSum {
 	            return grid[0][0];
 	        }
 	        if(m<0 || n<0){
-	             return 999;
+				//if int max value.ANy things gets added to it there is int overflow and -ve number gets in result.
+				//use big value but not as big as int max value
+	             return (int)Math.pow(10,9);
 	        }//// If we're out of bounds, return a large value.So it gets rejected in math.min
 	        //always remember base condition gets called at bottom of tree
 	        if(dp[m][n]!=-1){

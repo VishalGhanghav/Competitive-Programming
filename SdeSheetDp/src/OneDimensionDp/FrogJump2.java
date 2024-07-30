@@ -1,4 +1,4 @@
-package SdeSheetDp.src.dpBasic;
+package SdeSheetDp.src.OneDimensionDp;
 
 import java.util.*;
 
@@ -32,6 +32,7 @@ class FrogJump2 {
 
     // Function to find the minimum cost to reach the end of the array
     static int solve(int n, int[] height, int k) {
+        //SInce only index is changing we need 1d dp
         int[] dp = new int[n];
         Arrays.fill(dp, -1); // Initialize a memoization array to store calculated results
         return solveUtil(n - 1, height, dp, k); // Start the recursion from the last index
