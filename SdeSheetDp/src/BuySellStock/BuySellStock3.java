@@ -36,40 +36,84 @@ Constraints:
 0 <= prices[i] <= 105
  */
 public class BuySellStock3 {
-    public static int compute(int[] arr,int n,int index,int buy,int cap,int[][][] dp){
-        if(index==n || cap==0){
-            return 0;
-        }
-        int op1 = 0;
-        int op2 = 0;
-        if(dp[index][buy][cap]!=-1){
-            return dp[index][buy][cap];
-        }
-        if(buy==0){
-            //buying
-            op1=-arr[index]+compute(arr,n,index+1,1,cap,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,0,cap,dp);
-        }
-        if(buy==1){
-            //selling
-            op1=arr[index]+compute(arr,n,index+1,0,cap-1,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,1,cap,dp);
-        }
-        return dp[index][buy][cap]=Math.max(op1,op2);
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
 
-    }
+        // Using tabulation
+        // Creating 3D array as ind, buy, and cap are changing
+        int[][][] dp = new int[n + 1][2][3];
 
-    public static void main(String[] args) {
-        int []arr=new int[]{3,3,5,0,0,3,1,4};
-        int size=arr.length;
-        int dp[][][]=new int[size][2][3];
-        for(int i=0;i<size;i++){
-            for(int j=0;j<2;j++){
-               Arrays.fill(dp[i][j],-1);
+        // Base case: DP array is already initialized to 0.
+        // if cap == 0 return 0. Means index and buy can be anything and cap = 0, then profit = 0
+        for (int ind = 0; ind < n; ind++) {
+            for (int buy = 0; buy <= 1; buy++) {
+                dp[ind][buy][0] = 0;
             }
         }
-        System.out.println("maxProfit "+compute(arr,size,0,0,2,dp));
+        // if (ind == n) return 0
+        for (int buy = 0; buy <= 1; buy++) {
+            for (int cap = 0; cap <= 2; cap++) {
+                dp[n][buy][cap] = 0;
+            }
+        }
+
+        // Main tabulation
+        // Just reverse the logic for ind 0->n to n-1->0, buy can remain same, cap 2->0 to 0->2
+        // ind == n and cap == 0 already computed so be safe around it
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                for (int cap = 1; cap <= 2; cap++) {
+                    // Paste recurrence and modify for dp
+                    int profit = 0;
+                    if (buy == 0) {
+                        // We can buy or do no transaction
+                        // Cap doesn't decrement as only when transaction is completed, i.e., sell is done, it will decrement
+                        profit = Math.max(-prices[ind] + dp[ind + 1][1][cap],
+                                0 + dp[ind + 1][buy][cap]);
+                    } else {
+                        // We can sell or do no transaction
+                        // Cap decrement as well as selling
+                        profit = Math.max(prices[ind] + dp[ind + 1][0][cap - 1],
+                                0 + dp[ind + 1][buy][cap]);
+                    }
+                    dp[ind][buy][cap] = profit;
+                }
+            }
+        }
+        // The maximum profit with 2 transactions is stored in dp[0][0][2].
+        return dp[0][0][2];
+    }
+
+    private int getMaxProfitWithCap(int[] prices, int n, int ind, int buy, int cap, Integer[][][] dp) {
+        // if cap becomes 0 or ind == n, return 0 and stop there
+        if (ind == n || cap == 0) {
+            return 0;
+        }
+        if (dp[ind][buy][cap] != null) {
+            return dp[ind][buy][cap];
+        }
+        int profit = 0;
+        if (buy == 0) {
+            // We can buy or do no transaction
+            // Cap doesn't decrement as only when transaction is completed, i.e., sell is done, it will decrement
+            profit = Math.max(-prices[ind] + getMaxProfitWithCap(prices, n, ind + 1, 1, cap, dp),
+                    0 + getMaxProfitWithCap(prices, n, ind + 1, buy, cap, dp));
+        } else {
+            // We can sell or do no transaction
+            // Cap decrement as well as selling
+            profit = Math.max(prices[ind] + getMaxProfitWithCap(prices, n, ind + 1, 0, cap - 1, dp),
+                    0 + getMaxProfitWithCap(prices, n, ind + 1, buy, cap, dp));
+        }
+        return dp[ind][buy][cap] = profit;
+    }
+
+    // Main method to test the solution
+    public static void main(String[] args) {
+        BuySellStock3 sol = new BuySellStock3();
+
+        int[] prices = {3, 3, 5, 0, 0, 3, 1, 4};//op 6
+
+        int maxProfit = sol.maxProfit(prices);
+        System.out.println("Maximum profit with at most 2 transactions: " + maxProfit);
     }
 }

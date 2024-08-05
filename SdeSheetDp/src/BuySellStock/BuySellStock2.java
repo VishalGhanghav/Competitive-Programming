@@ -37,38 +37,76 @@ Constraints:
  */
 public class BuySellStock2 {
 
-    public static int compute(int[] arr,int n,int index,int buy,int[][] dp){
-        if(index==n){
-            return 0;
-        }
-        int op1 = 0;
-        int op2 = 0;
-        if(dp[index][buy]!=-1){
-            return dp[index][buy];
-        }
-        if(buy==0){
-            //buying
-            op1=-arr[index]+compute(arr,n,index+1,1,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,0,dp);
-        }
-        if(buy==1){
-            //selling
-            op1=arr[index]+compute(arr,n,index+1,0,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,1,dp);
-        }
-        return dp[index][buy]=Math.max(op1,op2);
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
 
+        // Uncomment the below lines for memoization approach
+        // // dp array for memoization, size is 2 because the buy flag can be 0 or 1
+        // Integer[][] dp = new Integer[n][2];
+        // // We start from index 0 and go up to n
+        // return getMaxProfit(prices, n, 0, 0, dp);
+
+        // Tabulation approach
+        int[][] dp = new int[n + 1][2];
+
+        // Base case: If index reaches n, profit is 0
+        dp[n][0] = 0;
+        dp[n][1] = 0;
+
+        // Fill the dp array from n-1 to 0
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                int profit = 0;
+                if (buy == 0) {
+                    // We can buy or do no transaction. We pick whichever gives maximum profit.
+                    // In buy case, we will set buyFlag to 1 which means now we hold a share.
+                    profit = Math.max(-prices[ind] + dp[ind + 1][1], 0 + dp[ind + 1][buy]);
+                } else {
+                    // We are already holding a stock
+                    // We can sell or do no transaction. We pick whichever gives maximum profit.
+                    // In sell case, we will set buyFlag to 0 which means now we sold the share.
+                    profit = Math.max(prices[ind] + dp[ind + 1][0], 0 + dp[ind + 1][buy]);
+                }
+                dp[ind][buy] = profit;
+            }
+        }
+        return dp[0][0];
     }
 
-    public static void main(String[] args) {
-        int []arr=new int[]{7,1,5,3,6,4};
-        int size=arr.length;
-        int dp[][]=new int[size][2];
-        for(int []pq:dp){
-            Arrays.fill(pq,-1);
+    private int getMaxProfit(int[] prices, int n, int ind, int buy, Integer[][] dp) {
+        // If we reach the last index, no more profit can be earned
+        if (ind == n) {
+            return 0;
         }
-        System.out.println("maxProfit "+compute(arr,size,0,0,dp));
+        // If the subproblem is already solved, return the stored result
+        if (dp[ind][buy] != null) {
+            return dp[ind][buy];
+        }
+
+        int profit = 0;
+        if (buy == 0) {
+            // If buy == 0, it means we haven't bought anything, we can buy
+            // We can buy or do no transaction. We pick whichever gives maximum profit.
+            // In buy case, we will set buyFlag to 1 which means now we hold a share.
+            profit = Math.max(-prices[ind] + getMaxProfit(prices, n, ind + 1, 1, dp),
+                    0 + getMaxProfit(prices, n, ind + 1, buy, dp));
+        } else {
+            // We are already holding a stock
+            // We can sell or do no transaction. We pick whichever gives maximum profit.
+            // In sell case, we will set buyFlag to 0 which means now we sold the share.
+            profit = Math.max(prices[ind] + getMaxProfit(prices, n, ind + 1, 0, dp),
+                    0 + getMaxProfit(prices, n, ind + 1, buy, dp));
+        }
+        return dp[ind][buy] = profit;
+    }
+
+    // Main method to test the solution
+    public static void main(String[] args) {
+        BuySellStock2 sol = new BuySellStock2();
+
+        int[] prices = {7, 1, 5, 3, 6, 4};//op :7
+
+        int maxProfit = sol.maxProfit(prices);
+        System.out.println("Maximum profit: " + maxProfit);
     }
 }
