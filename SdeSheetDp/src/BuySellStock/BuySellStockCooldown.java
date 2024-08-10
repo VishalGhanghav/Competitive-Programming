@@ -28,38 +28,72 @@ Constraints:
 0 <= prices[i] <= 1000
  */
 public class BuySellStockCooldown {
-    public static int compute(int[] arr,int n,int index,int buy,int[][] dp){
-        if(index>=n){
+    public int maxProfit(int[] prices) {
+        int pricesLength = prices.length;
+
+        // Memoization (commented out for tabulation approach)
+        // Integer[][] dp = new Integer[pricesLength + 1][2];
+        // return getMaxProfit(0, 0, prices, pricesLength, dp);
+
+        // Tabulation approach
+        // We use pricesLength + 2 because of the cooldown period.
+        // When selling, we skip one day (ind + 2), so we need extra space to avoid out-of-bounds errors.
+        int[][] dp = new int[pricesLength + 2][2];
+
+        // Base case: DP array is already initialized to 0, but for understanding we write base cases
+        dp[pricesLength][0] = 0; // If we reach the end of the prices array, profit is 0
+        dp[pricesLength][1] = 0; // Same for the case where we hold a stock
+
+        // Fill the DP table in reverse order (bottom-up approach)
+        for (int ind = pricesLength - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                long profit = 0;
+                if (buy == 0) {
+                    // If we are not holding a stock, we have the option to buy or not
+                    profit = Math.max(-prices[ind] + dp[ind + 1][1], dp[ind + 1][buy]);
+                } else {
+                    // If we are holding a stock, we have the option to sell or not
+                    // After selling, we skip one day (ind + 2) due to the cooldown period
+                    profit = Math.max(prices[ind] + dp[ind + 2][0], dp[ind + 1][buy]);
+                }
+                dp[ind][buy] = (int) profit;
+            }
+        }
+        // The maximum profit is found at the start of the prices array with no stock held
+        return dp[0][0];
+    }
+
+    private int getMaxProfit(int ind, int buy, int[] prices, int n, Integer[][] dp) {
+        // Base case
+        // As ind + 2 can pass n, we check if ind >= n.
+        // If we reach or exceed the end of the array, no more profit can be earned.
+        if (ind >= n) {
             return 0;
         }
-        int op1 = 0;
-        int op2 = 0;
-        if(dp[index][buy]!=-1){
-            return dp[index][buy];
+        if (dp[ind][buy] != null) {
+            return dp[ind][buy];
         }
-        if(buy==0){
-            //buying
-            op1=-arr[index]+compute(arr,n,index+1,1,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,0,dp);
+        long profit = 0;
+        // If buy == 0, we can buy or do no transaction
+        if (buy == 0) {
+            profit = Math.max(-prices[ind] + getMaxProfit(ind + 1, 1, prices, n, dp),
+                    0 + getMaxProfit(ind + 1, buy, prices, n, dp));
         }
-        if(buy==1){
-            //selling
-            op1=arr[index]+compute(arr,n,index+2,0,dp);
-            //no transaction
-            op2=0+compute(arr,n,index+1,1,dp);
+        // If buy == 1, we can sell or do no transaction
+        // After selling, we cannot buy for one day (ind + 2)
+        if (buy == 1) {
+            profit = Math.max(prices[ind] + getMaxProfit(ind + 2, 0, prices, n, dp),
+                    0 + getMaxProfit(ind + 1, buy, prices, n, dp));
         }
-        return dp[index][buy]=Math.max(op1,op2);
-
+        return dp[ind][buy] = (int) profit;
     }
 
     public static void main(String[] args) {
-        int []arr=new int[]{7,1,5,3,6,4};
-        int size=arr.length;
-        int dp[][]=new int[size][2];
-        for(int []pq:dp){
-            Arrays.fill(pq,-1);
-        }
-        System.out.println("maxProfit "+compute(arr,size,0,0,dp));
+        BuySellStockCooldown sol = new BuySellStockCooldown();
+
+        int[] prices = {1, 2, 3, 0, 2};
+
+        int maxProfit = sol.maxProfit(prices);
+        System.out.println("Maximum profit: " + maxProfit);
     }
 }
