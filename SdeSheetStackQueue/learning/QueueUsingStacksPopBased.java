@@ -45,9 +45,6 @@ public class QueueUsingStacksPopBased {
         return (output.size() + input.size());
     }
 
-
-}
-class TUF {
     public static void main(String args[]) {
         QueueUsingStacksPopBased q = new QueueUsingStacksPopBased();
         q.push(3);
@@ -58,4 +55,7 @@ class TUF {
         System.out.println("The size of the queue is " + q.size());
 
     }
+
 }
+
+
