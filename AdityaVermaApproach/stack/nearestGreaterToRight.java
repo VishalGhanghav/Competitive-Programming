@@ -1,4 +1,4 @@
-package stack;
+package AdityaVermaApproach.stack;
 
 import java.util.Stack;
 
