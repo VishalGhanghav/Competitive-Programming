@@ -1,8 +1,8 @@
-
+package SdeSheetSorting.src;
 
 import java.util.*;
 
-class Solutio {
+class MergeSort {
     private static void merge(int[] arr, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<>(); // temporary array
         int left = low;      // starting index of left half of arr
@@ -33,7 +33,10 @@ class Solutio {
             right++;
         }
 
-        // transfering all elements from temporary to arr //
+        // transfering all elements from temporary to arr
+        //Sometimes the low can be 2 high=4.Then we cant go and store temp array elements at wrong positions
+        //eg.i=low. low-low=0 low+1-low=1 low+2-low=2
+        //low=2 high=4 low-low=0.ie.temp[0] will be my first element
         for (int i = low; i <= high; i++) {
             arr[i] = temp.get(i - low);
         }
@@ -46,8 +49,6 @@ class Solutio {
         mergeSort(arr, mid + 1, high); // right half
         merge(arr, low, mid, high);  // merging sorted halves
     }
-}
-public class MergeSort {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         int n = 7;
@@ -57,7 +58,7 @@ public class MergeSort {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
-        Solutio.mergeSort(arr, 0, n - 1);
+        MergeSort.mergeSort(arr, 0, n - 1);
         System.out.println("After sorting array: ");
         for (int i = 0; i < n; i++) {
             System.out.print(arr[i] + " ");
