@@ -14,7 +14,7 @@ public class CountSubarrayWithGivenSum {
         System.out.println("Subarrays summing to target (Optimal): " + subarraySum(nums1, target1));
 
         // Test case 2: Including negative numbers
-        int[] nums2 = {-1, -1, 1};.
+        int[] nums2 = {-1, -1, 1};
         int target2 = 0;
         System.out.println("Subarrays summing to target (Brute Force): " + subarraySumBrute(nums2, target2));
         System.out.println("Subarrays summing to target (Better): " + subarraySumBetter(nums2, target2));
