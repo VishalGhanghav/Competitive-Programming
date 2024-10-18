@@ -1,4 +1,4 @@
-package SdeSheetGreedyProblems;
+package SdeSheetGreedyProblems.hard;
 
 public class JumpGame1 {
 

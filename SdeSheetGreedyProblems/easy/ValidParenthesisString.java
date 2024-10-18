@@ -1,4 +1,4 @@
-package SdeSheetGreedyProblems;
+package SdeSheetGreedyProblems.easy;
 
 public class ValidParenthesisString {
     public boolean checkValidString(String s) {
