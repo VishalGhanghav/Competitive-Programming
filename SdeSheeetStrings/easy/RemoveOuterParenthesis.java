@@ -1,4 +1,4 @@
-package SdeSheeetStrings;
+package SdeSheeetStrings.easy;
 
 import java.util.Stack;
 

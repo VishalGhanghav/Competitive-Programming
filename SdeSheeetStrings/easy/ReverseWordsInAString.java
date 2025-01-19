@@ -1,4 +1,4 @@
-package SdeSheeetStrings;
+package SdeSheeetStrings.easy;
 
 public class ReverseWordsInAString {
     public String reverseWords(String s) {
