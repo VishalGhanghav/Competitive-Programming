@@ -7,6 +7,7 @@ public class LongestCommonPrefix {
     public String longestCommonPrefix(String[] strs) {
         //We can sort the string.SO they will be lexicographically sorted
         Arrays.sort(strs);
+
         String s1=strs[0];
         String s2=strs[strs.length-1];
         int ind=0;
