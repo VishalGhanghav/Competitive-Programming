@@ -27,6 +27,29 @@ public class CountAndSay {
         return sb.toString();  // Return the generated sequence
     }
 
+    public String countAndSayIterative(int n) {
+        String s = "1"; // Base case
+
+        for (int i = 2; i <= n; i++) { // Build sequence iteratively up to n
+            StringBuilder sb = new StringBuilder();
+            int count = 1;
+
+            // Process the previous sequence character by character
+            for (int j = 0; j < s.length(); j++) {
+                if (j < s.length() - 1 && s.charAt(j) == s.charAt(j + 1)) {
+                    count++; // Increment count for repeated characters
+                } else {
+                    sb.append(count).append(s.charAt(j)); // Append "count + char"
+                    count = 1; // Reset count for the next character group
+                }
+            }
+
+            s = sb.toString(); // Move to the next sequence
+        }
+
+        return s;
+    }
+
     // Main method to test the function
     public static void main(String[] args) {
         CountAndSay sol = new CountAndSay();
