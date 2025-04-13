@@ -48,7 +48,7 @@ public class CapacityToShipPackages {
         }
 
         private static boolean isPossible(int[] nums,int days,int capacity) {
-            int cnt=0;
+            int cnt=1;//1st capacity is getting checked.Set 1 here no cnt++ in end.set 0 here do cnt++ in end
             int tempSum = 0;
             for(int num:nums) {
                 if((tempSum+num) > capacity) {
@@ -60,7 +60,7 @@ public class CapacityToShipPackages {
             //The last elmt will be left of count
             //eg:weights = [1,2,3,4,5,6,7,8,9,10], days = 5.Last day tempSum=10.but that weight is not yet loaded in ship.
             //lets load it and increase counter
-            cnt++;
+            //cnt++;
             return cnt<=days;
         }
 
