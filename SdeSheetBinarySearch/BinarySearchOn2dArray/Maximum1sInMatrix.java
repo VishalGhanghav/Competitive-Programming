@@ -1,4 +1,4 @@
-package SdeSheetBinarySearch.BinarySearchOnAnswer;
+package SdeSheetBinarySearch.BinarySearchOn2dArray;
 /*
 
  */
