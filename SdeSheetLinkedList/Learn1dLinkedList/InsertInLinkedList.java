@@ -2,6 +2,8 @@ package SdeSheetLinkedList.Learn1dLinkedList;
 
 import SdeSheetLinkedList.Node;
 
+import static SdeSheetLinkedList.Node.printLinkedList;
+
 public class InsertInLinkedList {
 
     public static void main(String[] args) {
@@ -50,15 +52,7 @@ public class InsertInLinkedList {
         return dummyHead;
     }
 
-    public static void printLinkedList(Node head) {
-        Node temp = head;
 
-        while(temp!=null) {
-            System.out.print(temp.val + " ");
-            temp = temp.next;
-        }
-        System.out.println();
-    }
 
     private static Node insertAtStart(Node head, int val) {
 

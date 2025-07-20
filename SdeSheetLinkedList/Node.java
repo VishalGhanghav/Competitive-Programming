@@ -13,4 +13,13 @@ public class Node {
         this.val = val;
         this.next = null;
     }
+    public static void printLinkedList(Node head) {
+        Node temp = head;
+
+        while(temp!=null) {
+            System.out.print(temp.val + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
 }

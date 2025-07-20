@@ -1,8 +1,7 @@
 package SdeSheetLinkedList.Learn1dLinkedList;
 
 import SdeSheetLinkedList.Node;
-
-import static SdeSheetLinkedList.Learn1dLinkedList.InsertInLinkedList.printLinkedList;
+import static SdeSheetLinkedList.Node.printLinkedList;
 
 public class DeleteInLinkedList {
     public static void main(String[] args) {
