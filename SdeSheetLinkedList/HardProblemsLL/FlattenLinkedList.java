@@ -5,18 +5,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class Node {
-    int data;
-    Node next;
-    Node bottom;
 
-    Node(int data) {
-        this.data = data;
-        this.next = null;
-        this.bottom = null;
-    }
-}
 public class FlattenLinkedList {
+
+    static class Node {
+        int data;
+        Node next;
+        Node bottom;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+            this.bottom = null;
+        }
+    }
 
     public static Node brute(Node head) {
         // Brute
