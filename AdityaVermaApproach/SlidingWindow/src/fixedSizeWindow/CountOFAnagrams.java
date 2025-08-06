@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CountOFAnagrams {
+public class
+CountOFAnagrams {
 	public static void main(String[] args) 
 	{
 		String input="aabaabaa";
