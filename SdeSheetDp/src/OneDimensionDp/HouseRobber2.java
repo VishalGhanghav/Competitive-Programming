@@ -95,6 +95,44 @@ public class HouseRobber2 {
 	        return Math.max(pick,notPick);
 	    }
 
+		/*private int tbSolve(int[] nums,int n,int[] dp) {
+        dp[0] = nums[0];
+        int res = 0;
+        for(int i=1;i<n;i++) {
+            int notPick = dp[i-1];
+            //I can only pick i>1.As dp[i-2] for i=1 will be -ve.
+            //Also why not use MIN_VALUE.Because for ip:[1,2].We will get 1 as ans
+            int pick = nums[i];
+            if(i>1) {
+                pick = dp[i-2] + nums[i];
+            }
+            dp[i] = Math.max(pick, notPick);
+        }
+        return dp[n-1];
+    }*/
+
+	/*private int spaceSolve(int[] nums,int n) {
+		//Observation: we only need dp[ind] dp[ind-1] and dp[ind-2] back.
+		//Why not have variables
+
+		int prev = nums[0];
+		int prev2 = 0;
+		for(int i=1;i<n;i++) {
+			//not pick
+			int notPick = 0+ nums[i-1];
+			//pick
+			int pick = nums[i];
+			if(i>1) {
+				pick = pick + nums[i-2];
+			}
+
+			nums[i] = Math.max(pick,notPick);
+			prev2 = prev;
+			prev = nums[i];
+		}
+		return nums[n-1];
+
+	}*/
 
 	    public static void main(String args[]) {
 	        // Input array with elements.
