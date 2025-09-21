@@ -63,4 +63,68 @@ public class UniquePaths2 {
 	        int left=uniquePathss(m,n-1,obstacleGrid,dp);
 	        return dp[m][n]=up+left;
 	    }
+
+	private int tabulation(int m, int n, int[][] dp, int[][] obstacle) {
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				// mat[i][j]==1, we will simply mark dp[i][j] = 0,
+				// it means that this cell is a blocked one and no path is possible through it.
+				if(obstacle[i][j]==1) {
+					dp[i][j]=0;
+					continue;
+				}
+				// for i=0 and j=0 ,We have base case so set 1
+				if (i == 0 && j == 0) {
+					dp[i][j] = 1;//One path found
+					continue;
+				}
+
+				int up = 0;
+				int left = 0;
+				// Calculate the number of ways by moving up (if possible) and left (if possible)
+				if (i > 0)
+					up = dp[i - 1][j];
+				if (j > 0)
+					left = dp[i][j - 1];
+				// Store the total number of ways to reach the current cell in the DP array
+				dp[i][j] = up + left;
+			}
+		}
+		return dp[m - 1][n - 1];
+	}
+
+	//If we observe,We only need up and left.
+	//ie basically current row and previous row only needed
+
+	private int space(int m, int n,int[][] obstacle) {
+		int[] prev = new int[n];
+		for (int i = 0; i < m; i++) {
+			// Create a temporary array to store the results for the current row
+			int[] temp = new int[n];
+			for (int j = 0; j < n; j++) {
+				if(obstacle[i][j] == 1) {
+					temp[j] = 0;
+					continue;
+				}
+				if (i == 0 && j == 0) {
+					// Base condition: There's one way to reach the top-left cell (0, 0)
+					temp[j] = 1;
+					continue;
+				}
+				int up = 0;
+				int left = 0;
+				// Calculate the number of ways by moving up (if possible) and left (if possible)
+				if (i > 0)
+					up = prev[j];
+				if (j > 0)
+					left = temp[j - 1];
+				// Store the total number of ways to reach the current cell in the DP array
+				temp[j] = up + left;
+			}
+			//Set prev as temp array calculated just above
+			prev = temp;
+		}
+		return prev[n - 1];
+	}
 }
