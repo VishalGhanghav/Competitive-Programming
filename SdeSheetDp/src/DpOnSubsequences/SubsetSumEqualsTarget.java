@@ -35,6 +35,65 @@ public class SubsetSumEqualsTarget {
         }
     }
 
+    private static Boolean subsetSumTabulation(int[] arr, int sum, int n) {
+        //n in memo->i in tabulation sum in memo->j in tabulation
+        //create dp array
+        Boolean dp[][]=new Boolean[n+1][sum+1];
+        for(int i=0;i<n+1;i++) {
+            for(int j=0;j<sum+1;j++) {
+                if(i==0 && j>0) {
+                    dp[i][j]=false;
+                }
+                if(j==0) {
+                    dp[i][j]=true;
+                }
+            }
+        }
+
+		/*Test your base case
+		 * for(int i=0;i<n+1;i++) {
+			for(int j=0;j<sum+1;j++) {
+				System.out.print(dp[i][j]+" ");
+			}
+			System.out.println();
+		}*/
+
+        for(int i=1;i<n+1;i++) {
+            for(int j=1;j<sum+1;j++) {
+                if(arr[i-1]<=j) {
+                    dp[i][j]=dp[i-1][j-arr[i-1]] || dp[i-1][j];
+                }else {
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+
+
+        return dp[n][sum];
+    }
+
+    public boolean spaceOptimization(int[] arr, int sum) {
+        int n = arr.length;
+        boolean[] prev = new boolean[sum + 1];
+        prev[0] = true;
+
+        for (int i = 1; i <= n; i++) {
+            boolean[] curr = new boolean[sum + 1];
+            curr[0] = true;
+            for (int j = 1; j <= sum; j++) {
+                if (arr[i - 1] <= j) {
+                    curr[j] = prev[j - arr[i - 1]] || prev[j];
+                } else {
+                    curr[j] = prev[j];
+                }
+            }
+            prev = curr; // move forward
+        }
+
+        return prev[sum];
+    }
+
+
     public static void main(String[] args) {
         // Example usage
         int[] arr = {3, 34, 4, 12, 5, 2};
