@@ -4,52 +4,122 @@ public class CoinChangeII {
 
     public int change(int amount, int[] coins) {
         int n = coins.length;
-        Integer[][] dp = new Integer[n + 1][amount + 1];
-        // Similar to count number of subsets with given sum.
-        // Only difference is here we can have same coin multiple times.
-        return getNumberOfCombinations(coins, n, amount, dp);
+        // You can switch approaches from here if needed
+        // Integer[][] dp = new Integer[n+1][amount+1];
+        // return memo(coins, n, amount, dp);
+        // return tabulation(coins, n, amount);
+        return space(coins, n, amount);
     }
 
-    private int getNumberOfCombinations(int[] arr, int n, int sum, Integer[][] dp) {
-        // If index is 0 and sum > 0, means we didn't find our answer. So, return 0.
-        if (n == 0 && sum > 0) {
-            return 0;
-        }
-        // If at any index we get sum = 0, means we found 1 combination.
-        if (sum == 0) {
+    // ---------------------------------------------------
+    // 1?? MEMOIZATION (Top-Down)
+    // TC: O(N * amount)
+    // SC: O(N * amount) + O(N) recursion stack
+    // ---------------------------------------------------
+    private int memo(int[] coins, int n, int amount, Integer[][] dp) {
+        // base case: amount == 0 ? one way (use no coins)
+        if (amount == 0) {
             return 1;
         }
 
-        // Return already computed result to avoid redundant calculations.
-        if (dp[n][sum] != null) {
-            return dp[n][sum];
+        // base case: no coins but amount > 0 ? no way
+        if (n == 0 && amount > 0) {
+            return 0;
         }
 
-        // If the current coin can be included in the combination.
-        if (arr[n - 1] <= sum) {
-            dp[n][sum] = getNumberOfCombinations(arr, n, sum - arr[n - 1], dp) + getNumberOfCombinations(arr, n - 1, sum, dp);
+        if (dp[n][amount] != null) {
+            return dp[n][amount];
+        }
+
+        // include the current coin (unlimited use) + exclude it
+        if (coins[n - 1] <= amount) {
+            dp[n][amount] = memo(coins, n, amount - coins[n - 1], dp) +
+                    memo(coins, n - 1, amount, dp);
         } else {
-            dp[n][sum] = getNumberOfCombinations(arr, n - 1, sum, dp);
+            dp[n][amount] = memo(coins, n - 1, amount, dp);
+        }
+        return dp[n][amount];
+    }
+
+    // ---------------------------------------------------
+    // 2?? TABULATION (Bottom-Up)
+    // TC: O(N * amount)
+    // SC: O(N * amount)
+    // ---------------------------------------------------
+    private int tabulation(int[] coins, int n, int amount) {
+        int[][] dp = new int[n + 1][amount + 1];
+
+        // Base Case:
+        // If amount = 0 ? only one way: choose no coin
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
         }
 
-        return dp[n][sum];
+        // If no coins ? no way to make any positive amount
+        for (int j = 1; j <= amount; j++) {
+            dp[0][j] = 0;
+        }
+
+        // Fill the dp table
+        for (int ind = 1; ind <= n; ind++) {
+            for (int sum = 1; sum <= amount; sum++) {
+                if (coins[ind - 1] <= sum) {
+                    // include + exclude
+                    dp[ind][sum] = dp[ind][sum - coins[ind - 1]] + dp[ind - 1][sum];
+                } else {
+                    dp[ind][sum] = dp[ind - 1][sum];
+                }
+            }
+        }
+
+        return dp[n][amount];
     }
+
+    // ---------------------------------------------------
+    // 3?? SPACE OPTIMIZATION
+    // TC: O(N * amount)
+    // SC: O(amount)
+    // ---------------------------------------------------
+    private int space(int[] coins, int n, int amount) {
+        int[] prev = new int[amount + 1];
+        prev[0] = 1; // base case: one way to make sum=0
+
+        for (int ind = 1; ind <= n; ind++) {
+            int[] curr = new int[amount + 1];
+            curr[0] = 1;
+
+            for (int sum = 1; sum <= amount; sum++) {
+                if (coins[ind - 1] <= sum) {
+                    curr[sum] = curr[sum - coins[ind - 1]] + prev[sum];
+                } else {
+                    curr[sum] = prev[sum];
+                }
+            }
+            prev = curr;
+        }
+
+        return prev[amount];
+    }
+
+    // ---------------------------------------------------
+    // MAIN METHOD — runs all approaches independently
+    // ---------------------------------------------------
     public static void main(String[] args) {
-        CoinChangeII solution = new CoinChangeII();
+        CoinChangeII obj = new CoinChangeII();
+        int[] coins = {1, 2, 5};
+        int amount = 5;
 
-        // Example 1
-        int[] coins1 = {1, 2, 5};
-        int amount1 = 5;
-        System.out.println(solution.change(amount1, coins1)); // Expected output: 4 (combinations: [5], [2, 2, 1], [2, 1, 1, 1], [1, 1, 1, 1, 1])
+        // MEMOIZATION
+        Integer[][] dp1 = new Integer[coins.length + 1][amount + 1];
+        int memoAns = obj.memo(coins, coins.length, amount, dp1);
+        System.out.println("Memoization Answer: " + memoAns);
 
-        // Example 2
-        int[] coins2 = {2};
-        int amount2 = 3;
-        System.out.println(solution.change(amount2, coins2)); // Expected output: 0 (no combination possible)
+        // TABULATION
+        int tabAns = obj.tabulation(coins, coins.length, amount);
+        System.out.println("Tabulation Answer: " + tabAns);
 
-        // Example 3
-        int[] coins3 = {10};
-        int amount3 = 10;
-        System.out.println(solution.change(amount3, coins3)); // Expected output: 1 (combination: [10])
+        // SPACE OPTIMIZATION
+        int spaceAns = obj.space(coins, coins.length, amount);
+        System.out.println("Space Optimized Answer: " + spaceAns);
     }
 }

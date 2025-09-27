@@ -1,4 +1,7 @@
 package SdeSheetDp.src.DpOnSubsequences;
+
+import java.util.Arrays;
+
 /*
 You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
 
@@ -75,22 +78,75 @@ public class MinimumCoins {
         return dp[n][sum];
     }
 
+    // ? Tabulation
+    private int coinChangeTabulation(int[] coins, int amount) {
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        for (int j = 0; j <= amount; j++) dp[0][j] = Integer.MAX_VALUE - 1;
+        for (int i = 0; i <= n; i++) dp[i][0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (coins[i - 1] <= j)
+                    dp[i][j] = Math.min(1 + dp[i][j - coins[i - 1]], dp[i - 1][j]);
+                else
+                    dp[i][j] = dp[i - 1][j];
+            }
+        }
+        return dp[n][amount] == Integer.MAX_VALUE - 1 ? -1 : dp[n][amount];
+    }
+
+    // ? Space Optimized (1D)
+    private int coinChangeSpaceOptimized(int[] coins, int amount) {
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE - 1);
+        dp[0] = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = coins[i]; j <= amount; j++) {
+                dp[j] = Math.min(dp[j], 1 + dp[j - coins[i]]);
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE - 1 ? -1 : dp[amount];
+    }
+
+    // ? Two Array Version
+    private int coinChangeTwoArray(int[] coins, int amount) {
+        int n = coins.length;
+        int[] prev = new int[amount + 1];
+        int[] curr = new int[amount + 1];
+        Arrays.fill(prev, Integer.MAX_VALUE - 1);
+        prev[0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            curr[0] = 0;
+            for (int j = 1; j <= amount; j++) {
+                if (coins[i - 1] <= j) {
+                    int include = (curr[j - coins[i - 1]] == Integer.MAX_VALUE - 1)
+                            ? Integer.MAX_VALUE - 1
+                            : 1 + curr[j - coins[i - 1]];
+                    int exclude = prev[j];
+                    curr[j] = Math.min(include, exclude);
+                } else {
+                    curr[j] = prev[j];
+                }
+            }
+            prev = curr.clone();
+        }
+
+        return prev[amount] == Integer.MAX_VALUE - 1 ? -1 : prev[amount];
+    }
+
+    // ? Main to test all
     public static void main(String[] args) {
-        MinimumCoins solution = new MinimumCoins();
+        MinimumCoins obj = new MinimumCoins();
+        int[] coins = {1, 2, 5};
+        int amount = 11;
 
-        // Example 1
-        int[] coins1 = {1, 2, 5};
-        int amount1 = 11;
-        System.out.println(solution.coinChange(coins1, amount1)); // Output: 3
-
-        // Example 2
-        int[] coins2 = {2};
-        int amount2 = 3;
-        System.out.println(solution.coinChange(coins2, amount2)); // Output: -1
-
-        // Example 3
-        int[] coins3 = {1};
-        int amount3 = 0;
-        System.out.println(solution.coinChange(coins3, amount3)); // Output: 0
+        System.out.println("Memoization: " + obj.coinChange(coins, amount));
+        System.out.println("Tabulation: " + obj.coinChangeTabulation(coins, amount));
+        System.out.println("Two Array Version: " + obj.coinChangeTwoArray(coins, amount));
+        System.out.println("Space Optimized (1D): " + obj.coinChangeSpaceOptimized(coins, amount));
     }
 }
