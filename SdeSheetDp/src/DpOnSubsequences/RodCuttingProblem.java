@@ -1,53 +1,97 @@
 package SdeSheetDp.src.DpOnSubsequences;
 
 public class RodCuttingProblem {
+
     public static void main(String[] args) {
-        // Example 1
-        int[] price1 = {1, 5, 8, 9, 10, 17, 17, 20};
-        int N1 = 8;
-        //2 rods or 8 price with length 3 and 1 rod of price 5 with length 2
-        System.out.println(cutRod(price1, N1)); // Expected output: 22
+        int[] price = {2, 5, 7, 8, 10}; // price[i] = price of rod of length (i+1)
+        int n = price.length;
 
-        // Example 2
-        int[] price2 = {3, 5, 8, 9, 10, 17, 17, 20};
-        int N2 = 8;
-        System.out.println(cutRod(price2, N2)); // Expected output: 24
+        // Prepare length array
+        int[] length = new int[n];
+        for (int i = 0; i < n; i++) length[i] = i + 1;
+        // here sum is length itself.When sum gets 0 we get base case condition
+        // MEMOIZATION
+        Integer[][] dpMemo = new Integer[n + 1][n + 1];
+        int memoAns = cutRodMemo(price, n, n, length, dpMemo);
+        System.out.println("Memoization Answer: " + memoAns);
+
+        // TABULATION
+        int tabAns = cutRodTabulation(price, n, length);
+        System.out.println("Tabulation Answer: " + tabAns);
+
+        // SPACE OPTIMIZED
+        int spaceAns = cutRodSpaceOptimized(price, n, length);
+        System.out.println("Space Optimized Answer: " + spaceAns);
     }
 
-    public static int cutRod(int price[], int N) {
-        // Initialize a 2D DP array for memoization
-        Integer[][] dp = new Integer[N + 1][N + 1];
-        int[] length = new int[N];
-        for (int i = 0; i < N; i++) {
-            length[i] = i + 1;
-        }
-        int sum = length.length; // sum and n are same in this case
-
-        // Start the recursive function with memoization
-        return cutRodMemo(price, N, sum, length, dp);
-    }
-
+    // --------------------------
+    // 1) MEMOIZATION
+    // --------------------------
     private static int cutRodMemo(int[] price, int n, int sum, int[] length, Integer[][] dp) {
-        // Base case: If the rod length is 0 or no pieces are left, no value can be obtained
-        if (sum == 0 || n == 0) {
-            return 0;
-        }
+        // Base case: no rod left or no pieces left
+        if (sum == 0 || n == 0) return 0;
 
-        // If the result is already computed, return it
-        if (dp[n][sum] != null) {
-            return dp[n][sum];
-        }
+        if (dp[n][sum] != null) return dp[n][sum];
 
-        // If the current piece length is less than or equal to the remaining length
         if (length[n - 1] <= sum) {
-            // Max value obtained by either cutting or not cutting the current piece
-            dp[n][sum] = Math.max(price[n - 1] + cutRodMemo(price, n, sum - length[n - 1], length, dp),
-                    cutRodMemo(price, n - 1, sum, length, dp));
+            dp[n][sum] = Math.max(
+                    price[n - 1] + cutRodMemo(price, n, sum - length[n - 1], length, dp), // take (unbounded)
+                    cutRodMemo(price, n - 1, sum, length, dp)                               // skip
+            );
         } else {
-            // If the current piece length is greater than the remaining length, skip it
             dp[n][sum] = cutRodMemo(price, n - 1, sum, length, dp);
         }
 
         return dp[n][sum];
+    }
+
+    // --------------------------
+    // 2) TABULATION
+    // --------------------------
+    private static int cutRodTabulation(int[] price, int n, int[] length) {
+        int[][] dp = new int[n + 1][n + 1];
+
+        // Base case: dp[0][*] = 0, dp[*][0] = 0 (by default zero)
+
+        for (int i = 1; i <= n; i++) {
+            for (int sum = 1; sum <= n; sum++) {
+                if (length[i - 1] <= sum) {
+                    dp[i][sum] = Math.max(
+                            price[i - 1] + dp[i][sum - length[i - 1]], // take current piece (unbounded)
+                            dp[i - 1][sum]                               // skip
+                    );
+                } else {
+                    dp[i][sum] = dp[i - 1][sum];
+                }
+            }
+        }
+
+        return dp[n][n];
+    }
+
+    // --------------------------
+    // 3) SPACE-OPTIMIZED (two rows)
+    // --------------------------
+    private static int cutRodSpaceOptimized(int[] price, int n, int[] length) {
+        int[] prev = new int[n + 1];
+
+        // Base case: prev[0..n] = 0 (by default zero)
+
+        for (int i = 1; i <= n; i++) {
+            int[] curr = new int[n + 1];
+            for (int sum = 1; sum <= n; sum++) {
+                if (length[i - 1] <= sum) {
+                    curr[sum] = Math.max(
+                            price[i - 1] + curr[sum - length[i - 1]], // take current piece (unbounded)
+                            prev[sum]                                 // skip
+                    );
+                } else {
+                    curr[sum] = prev[sum];
+                }
+            }
+            prev = curr;
+        }
+
+        return prev[n];
     }
 }
