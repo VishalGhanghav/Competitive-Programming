@@ -28,6 +28,23 @@ public class LongestPalindromicSubsequence {
         return dp[m][n]; // Return the length of the longest palindromic subsequence
     }
 
+    private int getLcsSpace(String s1,String s2,int m,int n){
+        //No base case needed as both 0th row and col already 0
+        int[] prev = new int[n+1];
+        int[] curr = new int[n+1];
+        for(int i=1;i<=m;i++) {
+            for(int j=1;j<=n;j++) {
+                if(s1.charAt(i-1) == s2.charAt(j-1)) {
+                    curr[j] = 1 + prev[j-1];
+                } else {
+                    curr[j] = Math.max(prev[j],curr[j-1]);
+                }
+            }
+            prev = curr.clone();
+        }
+        return prev[n];
+    }
+
     // Main method to test the solution
     public static void main(String[] args) {
         LongestPalindromicSubsequence sol = new LongestPalindromicSubsequence();

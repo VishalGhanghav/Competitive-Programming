@@ -68,6 +68,30 @@ public class DistinctSubsequences {
         return dp[m][n];
     }
 
+    private int space(String s1,String s2,int m,int n) {
+        int[] prev = new int[n+1];
+        int[] curr = new int[n+1];
+
+        prev[0] = 1;
+        for(int i=1;i<=m;i++) {
+            curr[0]=1;
+            for(int j=1;j<=n;j++) {
+                //simply copy the recurrence from memoization and make changes here
+                if(s1.charAt(i-1)==s2.charAt(j-1)){
+                    //we have two conditions.
+                    //If pick:we can pick and reduce index in both string.
+                    //not pick:no pick and reduce index in m.
+                    curr[j]= prev[j-1]+ prev[j];
+                }else{
+                    //not pick always
+                    curr[j]= prev[j];
+                }
+            }
+            prev = curr.clone();
+        }
+        return prev[n];
+    }
+
     // Main method for testing the code
     public static void main(String[] args) {
         DistinctSubsequences solution = new DistinctSubsequences();

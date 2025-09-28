@@ -99,6 +99,49 @@ public class WildcardMatching {
         return dp[m][n] = false;
     }
 
+    public boolean space(String s, String p) {
+        int m = s.length();
+        int n = p.length();
+
+        boolean[] prev = new boolean[n + 1];
+        boolean[] curr = new boolean[n + 1];
+
+        // Base case: both string and pattern empty
+        prev[0] = true;
+
+        // Base case: empty string, non-empty pattern
+        for (int j = 1; j <= n; j++) {
+            boolean flag = true;
+            for (int k = 1; k <= j; k++) {
+                if (p.charAt(k - 1) != '*') {
+                    flag = false;
+                    break;
+                }
+            }
+            prev[j] = flag;
+        }
+
+        // Fill dp rows one by one
+        for (int i = 1; i <= m; i++) {
+            curr[0] = false; // empty pattern can't match non-empty string
+
+            for (int j = 1; j <= n; j++) {
+                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?') {
+                    curr[j] = prev[j - 1];
+                } else if (p.charAt(j - 1) == '*') {
+                    curr[j] = prev[j] || curr[j - 1];
+                } else {
+                    curr[j] = false;
+                }
+            }
+
+            // Move curr to prev for next iteration
+            prev = curr.clone();
+        }
+
+        return prev[n];
+    }
+
     // Main method for testing the code
     public static void main(String[] args) {
         WildcardMatching solution = new WildcardMatching();
