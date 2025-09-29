@@ -46,6 +46,7 @@ public class LongestIncreasingSubsequence {
         }
 
         // Check if the value is already computed
+        //For 0th element previous elmt is -1 so using prevInd+1
         if (dp[ind][prevInd + 1] != null) {
             return dp[ind][prevInd + 1];
         }

@@ -61,6 +61,11 @@ public class PrintLIS {
         // res = [101, 7, 3, 2, 10] (added the element 10)
         // lastIndex = 0 (hash[0] = 0, so the loop stops here as hash[lastIndex] == lastIndex)
         // Reverse the result list as we built it backwards
+        //Now based on hashArray we will travel
+        while(hash[lastIndex]!=lastIndex){
+            lastIndex=hash[lastIndex];
+            res.add(arr[lastIndex]);
+        }
         Collections.reverse(res);
 
         return res;
