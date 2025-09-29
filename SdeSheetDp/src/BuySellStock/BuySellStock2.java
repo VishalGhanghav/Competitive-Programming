@@ -75,6 +75,8 @@ public class BuySellStock2 {
 
     private int getMaxProfit(int[] prices, int n, int ind, int buy, Integer[][] dp) {
         // If we reach the last index, no more profit can be earned
+        // it means we have finished trading on all days, and there is no
+        // more money that we can get, therefore we simply return 0.
         if (ind == n) {
             return 0;
         }
@@ -98,6 +100,35 @@ public class BuySellStock2 {
                     0 + getMaxProfit(prices, n, ind + 1, buy, dp));
         }
         return dp[ind][buy] = profit;
+    }
+
+    static long space(long[] Arr, int n) {
+        // Create arrays 'ahead' and 'cur' to store the maximum profit ahead and current profit
+        long[] ahead = new long[2];
+        long[] cur = new long[2];
+
+        // Base condition: If we have no stocks to buy or sell, profit is 0
+        ahead[0] = ahead[1] = 0;
+
+        long profit = 0;
+
+        // Iterate through the array in reverse to calculate the maximum profit
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                if (buy == 0) { // We can buy the stock
+                    profit = Math.max(0 + ahead[0], -Arr[ind] + ahead[1]);
+                }
+
+                if (buy == 1) { // We can sell the stock
+                    profit = Math.max(0 + ahead[1], Arr[ind] + ahead[0]);
+                }
+                cur[buy] = profit;
+            }
+
+            // Update the 'ahead' array with the current profit values
+            System.arraycopy(cur, 0, ahead, 0, 2);
+        }
+        return cur[0]; // The maximum profit is stored in 'cur[0]'
     }
 
     // Main method to test the solution

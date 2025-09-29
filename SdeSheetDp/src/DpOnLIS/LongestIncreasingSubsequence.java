@@ -1,5 +1,8 @@
 package SdeSheetDp.src.DpOnLIS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
@@ -74,5 +77,42 @@ public class LongestIncreasingSubsequence {
         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         int length = solution.lengthOfLIS(nums);
         System.out.println("Length of Longest Increasing Subsequence: " + length);
+    }
+
+    private static int longestIncreasingSubsequenceBrute(int[] arr) {
+        int[] maxLen = new int[1];
+
+        // inner recursive function to generate subsequences
+        generateSubsequences(0, arr, new ArrayList<>(), maxLen);
+        return maxLen[0];
+    }
+
+    // Recursive function to generate all subsequences and check increasing ones
+    private static void generateSubsequences(int index, int[] arr, List<Integer> current, int[] maxLen) {
+        if (index == arr.length) {
+            // Check if current subsequence is strictly increasing
+            boolean isIncreasing = true;
+            for (int i = 1; i < current.size(); i++) {
+                if (current.get(i) <= current.get(i - 1)) {
+                    isIncreasing = false;
+                    break;
+                }
+            }
+
+            if (isIncreasing) {
+                maxLen[0] = Math.max(maxLen[0], current.size());
+            }
+            return;
+        }
+
+        // Not take current element
+        generateSubsequences(index + 1, arr, current, maxLen);
+
+        // Take current element
+        current.add(arr[index]);
+        generateSubsequences(index + 1, arr, current, maxLen);
+
+        // Backtrack
+        current.remove(current.size() - 1);
     }
 }
