@@ -3,6 +3,7 @@ package SdeSheetDp.src.DpOnLIS;
 import java.util.ArrayList;
 
 public class LISusingBinarySearch {
+    //The binary search above returns the index of that "next greater or equal" element.
     private static int binarySearch(ArrayList<Integer> list, int key) {
         int low = 0;
         int high = list.size() - 1;
