@@ -30,6 +30,7 @@ public class MatrixChainMultiplication {
                     minOperations = Math.min(minOperations, operations);
                 }
 
+                //dp[i][j] = minimum cost (scalar multiplications) needed to multiply matrices from index i to j (inclusive).
                 dp[i][j] = minOperations;
             }
         }
@@ -62,6 +63,7 @@ public class MatrixChainMultiplication {
         }
 
         // Cache the computed result
+        //dp[i][j] = minimum cost (scalar multiplications) needed to multiply matrices from index i to j (inclusive).
         return dp[i][j] = minSteps;
     }
 
@@ -74,8 +76,19 @@ public class MatrixChainMultiplication {
         System.out.println("Minimum number of multiplications is: " + minMultiplications);
 
         // Example for memoization approach
+        //dp[i][j] = minimum number of scalar multiplications required to multiply matrices from Ai ? Aj.
         Integer[][] dp = new Integer[N][N];
         int minMultiplicationsMemo = getMatrixMultiplication(1, N - 1, arr, dp);
         System.out.println("Minimum number of multiplications (Memoization) is: " + minMultiplicationsMemo);
+        /*
+        ? Final DP Matrix (tabular form)
+        eg:arr = [10, 20, 30, 40, 30]
+        N = 5
+        i\j	1	2	    3	    4
+        1	0	6,000	18,000	30,000
+        2	—	0	    24,000	48,000
+        3	—	—	    0	    36,000
+        4	—	—	    —	    0
+         */
     }
 }
