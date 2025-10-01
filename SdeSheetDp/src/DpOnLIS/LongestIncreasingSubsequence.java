@@ -73,6 +73,27 @@ public class LongestIncreasingSubsequence {
         return dp[ind][prevInd + 1];
     }
 
+    // ? 3?? Tabulation (1D DP) — standard and preferred
+    // TC: O(N^2)
+    // SC: O(N)
+    public static int lengthOfLIS_Tabulation1D(int[] arr) {
+        int n = arr.length;
+        int[] dp = new int[n];
+        int maxLen = 1;
+
+        for (int ind = 0; ind < n; ind++) {
+            dp[ind] = 1; // Every element is an LIS of length 1 by itself
+            for (int prev = 0; prev < ind; prev++) {
+                if (arr[ind] > arr[prev] && dp[ind] < dp[prev] + 1) {
+                    dp[ind] = dp[prev] + 1;
+                }
+            }
+            maxLen = Math.max(maxLen, dp[ind]);
+        }
+
+        return maxLen;
+    }
+
     public static void main(String[] args) {
         LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
