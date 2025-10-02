@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class MatrixChainMultiplication {
     static int matrixMultiplication(int N, int arr[]) {
         // Create a 2D dp array to store the minimum cost of multiplication
+        //dp[i][j] = minimum cost (multiplications) needed to multiply matrices from index i to j (inclusive).
         int[][] dp = new int[N][N];
 
         // Initialize the dp array with -1 (for uncomputed values)
@@ -63,7 +64,7 @@ public class MatrixChainMultiplication {
         }
 
         // Cache the computed result
-        //dp[i][j] = minimum cost (scalar multiplications) needed to multiply matrices from index i to j (inclusive).
+        //dp[i][j] = minimum cost (multiplications) needed to multiply matrices from index i to j (inclusive).
         return dp[i][j] = minSteps;
     }
 

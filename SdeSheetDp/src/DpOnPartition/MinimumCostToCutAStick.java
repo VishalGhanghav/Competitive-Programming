@@ -93,7 +93,7 @@ public class MinimumCostToCutAStick {
                 .collect(Collectors.toList()); // Collect to List<Integer>
         cutsList.add(0); // Add starting point
         cutsList.add(n); // Add ending point
-        Collections.sort(cutsList); // Sort the list
+        Collections.sort(cutsList); // Sort the listso that cut will result in independant rods
 
         Integer[][] dp = new Integer[cutsList.size()][cutsList.size()]; // Initialize DP table
         int minCostMemo = sol.getMinCost(1, cutsList.size() - 2, cutsList, dp);

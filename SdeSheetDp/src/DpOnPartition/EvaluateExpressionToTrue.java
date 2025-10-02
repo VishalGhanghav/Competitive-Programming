@@ -12,6 +12,7 @@ public class EvaluateExpressionToTrue {
 
         // Base case 2: When the start and end indices are the same.
         if (i == j) {
+            //If I want boolean evaluation to be true and exp character is also true return true
             if (isTrue == 1) {
                 return exp.charAt(i) == 'T' ? 1 : 0;
             } else {
@@ -27,6 +28,8 @@ public class EvaluateExpressionToTrue {
         long ways = 0;
 
         // Iterate through all operators in the current subexpression
+        //If isTrue is 1, we will calculate the number of ways that provide the result true
+        //and if isTrue is 0, we will calculate the number of ways that give the result false.
         for (int ind = i + 1; ind <= j - 1; ind += 2) {
             long lT = evaluateExpressionWays(exp, i, ind - 1, 1, dp);
             long lF = evaluateExpressionWays(exp, i, ind - 1, 0, dp);

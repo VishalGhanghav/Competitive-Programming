@@ -41,6 +41,7 @@ public class PalindromePartitioning {
             // I don't need to store temp string as it will always be from i to j index
             // if I had used temp string: temp = temp + s.charAt(j)
             if (isPalindrome(i, j, s)) {
+                //If I found palindrome between i to j means add 1 and calculate further
                 int cost = 1 + getMinCuts(j + 1, n, s, dp);
                 minCost = Math.min(cost, minCost);
             }
