@@ -4,6 +4,13 @@ import java.util.Stack;
 
 public class MaximalAreaOfRectangle {
     // Function to calculate the maximum rectangular area in a histogram
+    /*When we are at a particular index i,
+    we check if the current bar (height = heights[i]) is smaller than or equal to the bar at the top of the stack.
+
+    If it is,
+    then the top bar can’t extend further (because the current bar blocks it from the right).
+    That means, the maximum width of that popped bar is now known —
+    so we calculate the area for that popped bar right then and there.*/
     public int calculate(int height[]) {
         // Stack to store the indices of the histogram bars
         Stack<Integer> st = new Stack<>();

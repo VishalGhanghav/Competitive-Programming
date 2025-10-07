@@ -27,6 +27,8 @@ public class NodesAtKDistanceInBinartTree {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         Map<TreeNode,TreeNode> map=new HashMap<>();
         setparent(root,map);
+        //Why visited needed? Ans:Without visited, you’ll end up going back and forth infinitely:
+        //From child ? parent ? child ? parent ?.Without it: BFS loops infinitely.
         Map<TreeNode,Boolean> visited=new HashMap<>();
         visited.put(target,true);
         Queue<TreeNode> q=new LinkedList<>();
@@ -51,6 +53,7 @@ public class NodesAtKDistanceInBinartTree {
                     q.add(temp.right);
                     visited.put(temp.right,true);
                 }
+                //map stores left/right -> parent mapping.So map.get gives parent
                 if(map.get(temp)!=null&&visited.get(map.get(temp))==null){
                     q.add(map.get(temp));
                     visited.put(map.get(temp),true);

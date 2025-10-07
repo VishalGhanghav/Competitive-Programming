@@ -7,7 +7,7 @@ public class MinTimeToBurnBinaryTree {
     {
         // Your code goes here
         Map<TreeNode,TreeNode> parentMap=new HashMap<>();
-        //we will do bfs to map parentsand also find node from where to start burn
+        //we will do bfs to map parents and also find node from where to start burn
         TreeNode burnStart=bfsToMapParents(root,parentMap,target);
         return findMinTimeToBurn(parentMap,burnStart);
     }

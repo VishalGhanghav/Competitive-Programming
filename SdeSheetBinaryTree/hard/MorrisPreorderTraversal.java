@@ -15,7 +15,7 @@ Output: preorder Traversal of this binary tree will be:- 4,2,5,6,1,3
 Disclaimer: Don't jump directly to the solution, try it out yourself first.
 
 Solution:
-Intuition: We first need to understand what we do in preorder traversal: Left, Current, Right.
+Intuition: We first need to understand what we do in preorder traversal: current, left, Right.
 
 If we draw a path of our traversal, we will get:
 
