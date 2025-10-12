@@ -52,6 +52,43 @@ public class FlattenBinaryTreeToLinkedList {
             curr=curr.right;
         }
     }
+
+    TreeNode prev = null;
+
+    // Function to flatten a binary tree
+    // to a right next Linked List structure
+    public void flattenBrute(TreeNode root) {
+        // Base case: If the current
+        // node is null, return.
+        if (root == null) {
+            return;
+        }
+
+        // Recursive call to
+        // flatten the right subtree
+        flattenBrute(root.right);
+
+        // Recursive call to
+        // flatten the left subtree
+        flattenBrute(root.left);
+
+        // At this point, both left and right
+        // subtrees are flattened, and 'prev'
+        // is pointing to the rightmost node
+        // in the flattened right subtree.
+
+        // Set the right child of
+        // the current node to 'prev'.
+        root.right = prev;
+
+        // Set the left child of the
+        // current node to null.
+        root.left = null;
+
+        // Update 'prev' to the current
+        // node for the next iteration.
+        prev = root;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
