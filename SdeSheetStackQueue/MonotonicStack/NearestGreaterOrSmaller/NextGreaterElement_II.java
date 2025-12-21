@@ -34,7 +34,7 @@ public class NextGreaterElement_II {
         NextGreaterElement_II nge = new NextGreaterElement_II();
 
         // Example input array
-        int[] nums = {1, 2, 1};
+        int[] nums = {2,10,12,1,11};
 
         // Call the function and get the result
         int[] result = nge.nextGreaterElements(nums);

@@ -2,7 +2,8 @@ package SdeSheetStackQueue.ImplementationProblems;
 import java.util.HashMap;
 import java.util.Map;
 
-class LRUCache {
+class
+LRUCache {
     class Node {
         int key;
         int val;
